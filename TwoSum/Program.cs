@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace TwoSum
 {
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
+        public ListNode() { }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -39,7 +47,222 @@ namespace TwoSum
             //Console.WriteLine("Longest Common Prefix : " + LongestCommonPrefix(new string[] { "aa", "a" }));
 
             //Valid Parentheses
-            Console.WriteLine("Valid Parentheses : " + IsValid("{[(]}"));
+            //Console.WriteLine("Valid Parentheses : " + IsValid("{[(]}"));
+
+            //Merge Two Sorted Lists
+            //ListNode l1 = new ListNode(1);
+            //ListNode l2 = new ListNode(2);
+            //ListNode l3 = new ListNode(4);
+            //l1.next = l2;
+            //l2.next = l3;
+
+            //ListNode l4 = new ListNode(1);
+            //ListNode l5 = new ListNode(3);
+            //ListNode l6 = new ListNode(4);
+            //l4.next = l5;
+            //l5.next = l6;
+
+            //ListNode l = MergeTwoLists(l1, l4);
+
+            //while (l.next != null)
+            //{
+            //    Console.WriteLine("Merge Two Sorted Lists : " + l.val);
+            //    l = l.next;
+            //}
+
+            //Remove Duplicates from Sorted Array
+            //Console.WriteLine("Remove Duplicates from Sorted Array : " + RemoveDuplicatesNewer(new int[] { 1, 1, 1, 2 }));
+            //{ 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 })); //
+            //Console.WriteLine("Remove Duplicates from Sorted Array : " + RemoveDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }));
+
+            Console.WriteLine("Remove Element : " + RemoveElement(new int[] { 2, 2, 2, 3, 4 }, 2));
+        }
+
+        //Remove Element
+        public static int RemoveElement(int[] nums, int val)
+        {
+            if (nums == null || nums.Length == 0)
+                return 0;
+
+            if (nums.Length == 1 && nums[0] == val)
+                return 1;
+
+            int x = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                //if (i < nums.Length - 1)
+                //{
+                    if (nums[i] != val)
+                    {
+                        nums[x] = nums[i];
+                        x++;
+                    }
+                //}
+            }
+            return x;
+        }
+
+        //Remove Duplicates from Sorted Array
+        public static int RemoveDuplicates(int[] nums)
+        {
+            int temp = 0, count =  0;
+            if (nums == null || nums.Length == 0)
+                return 0;
+
+            if (nums.Length == 1)
+                return 1;
+
+            for (int k = 0; k < nums.Length; k++)
+            {
+                if(temp == nums[count])
+                {
+                    for(int i = count; i < nums.Length - count; i++)
+                    {
+                        nums[i] = i < nums.Length - 1 ? nums[i + 1] : nums[nums.Length - 1];
+                    }
+                    if(k < nums.Length - 1 && temp != nums[k+1])
+                    {
+                        count++;
+                    }
+                    temp = k < nums.Length- 1 ? nums[k + 1] : nums[nums.Length - 1];
+                }
+                else
+                {
+                    temp = nums[k];
+                    count++;
+                }
+            }
+
+            temp = nums[0];
+            count = 1;
+            for (int k = 1; k < nums.Length; k++)
+            {
+                if (temp != nums[k])
+                {
+                    temp = nums[k];
+                    count++;
+                }
+                else
+                    continue;
+            }
+            return count;
+        }
+
+        public static int RemoveDuplicatesNew(int[] nums)
+        {
+            int count = 1;
+            if (nums == null || nums.Length == 0)
+                return 0;
+
+            if (nums.Length == 1)
+                return 1;
+
+            int temp = 0;
+            for(int i = 0; i < nums.Length - 1; i++)
+            {
+                temp = nums[i];
+                if(temp == nums[i+1])
+                {
+                    int s = temp;
+                    //find the first non matcing number
+                    for(int x = i; x < nums.Length; x++)
+                    {
+                        if(temp != nums[x])
+                        {
+                            temp = nums[x];
+                            count++;
+                            break;
+                        }
+                    }
+
+                    //then loop through and overwrite the next set of duplicates with that number.
+                    for (int k = i + 1; k < nums.Length - 1; k++)
+                    {
+                        if (nums[k] < temp)
+                        {
+                            nums[k] = temp;
+                        }
+                    }
+                }
+                else
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        public static int RemoveDuplicatesNewer(int[] nums)
+        {
+            if (nums == null || nums.Length == 0)
+                return 0;
+
+            if (nums.Length == 1)
+                return 1;
+
+            int x = 1;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i < nums.Length - 1)
+                {
+                    if (nums[i] != nums[i + 1])
+                    {
+                        nums[x] = nums[i + 1];
+                        x++;
+                    }
+                }
+            }
+            return x;
+        }
+
+        //Merge Two Sorted Lists
+        public static ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        {
+            ListNode p = null;
+            ListNode q = null;
+
+            if (l1 == null)
+                return l2;
+
+            if (l2 == null)
+                return l1;
+
+            ListNode node = l1.val > l2.val ? l2 : l1;
+
+            // insert l2 into l1
+            while (l1 != null && l2 != null)
+            {
+                if (l1.val > l2.val && p == null)
+                {
+                    q = l2.next;
+                    l2.next = l1;
+                    l1 = l2;
+                    l2 = q;
+                }
+                else if (l1.val > l2.val)
+                {
+                    q = l2.next;
+                    p.next = l2;
+                    l2.next = l1;
+                    p = l2;
+                    l2 = q;
+                }
+                else
+                {
+                    p = l1;
+                    l1 = l1.next;
+                }
+            }
+
+            if (l2 != null)
+            {
+                p.next = l2;
+            }
+            return node;
+
+
+
+            return p;
         }
 
         //Valid Parentheses
