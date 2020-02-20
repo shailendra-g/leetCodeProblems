@@ -75,7 +75,75 @@ namespace TwoSum
             //{ 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 })); //
             //Console.WriteLine("Remove Duplicates from Sorted Array : " + RemoveDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }));
 
-            Console.WriteLine("Remove Element : " + RemoveElement(new int[] { 2, 2, 2, 3, 4 }, 2));
+            //Remove Element
+            //Console.WriteLine("Remove Element : " + RemoveElement(new int[] { 2, 2, 2, 3, 4 }, 2));
+
+            //Implement strStr()
+            //Console.WriteLine("Implement strStr() : " + StrStr("aaa", "aaaa"));
+
+            //Search Insert Position
+            Console.WriteLine("Search Insert Position : " + SearchInsert(new int[] {1, 3, 5, 6 }, 2));
+        }
+
+        //Search Insert Position
+        public static int SearchInsert(int[] nums, int target)
+        {
+            if (nums.Length < 1 || target <= nums[0])
+                return 0;
+            if (nums.Length == 1)
+            {
+                return 1;
+            }
+
+            if (target > nums[nums.Length - 1])
+            {
+                return nums.Length;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (target == nums[i])
+                {
+                    return i;
+                }
+
+                if (target > nums[i] && target < nums[i + 1])
+                {
+                    return i + 1;
+                }
+
+            }
+            return 0;
+        }
+
+        //Implement strStr()
+        public static int StrStr(string haystack, string needle)
+        {
+            if (needle == null || needle == string.Empty) { return 0; }
+
+            for(int i = 0; i < haystack.Length - needle.Length + 1; i++)
+            {
+                if(haystack[i] == needle[0])
+                {
+                    int x = i;
+                    bool found = true;
+                    for(int j = 1; j < needle.Length; j++)
+                    {
+                        if(x+1 < haystack.Length && needle[j] == needle[x+1])
+                        {
+                            x++;
+                        }
+                        else
+                        {
+                            found = false;
+                            break;
+                        }
+                    }
+                    if (found)
+                        return i;
+                }
+            }
+            return -1;
         }
 
         //Remove Element
