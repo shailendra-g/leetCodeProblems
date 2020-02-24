@@ -82,7 +82,34 @@ namespace TwoSum
             //Console.WriteLine("Implement strStr() : " + StrStr("aaa", "aaaa"));
 
             //Search Insert Position
-            Console.WriteLine("Search Insert Position : " + SearchInsert(new int[] {1, 3, 5, 6 }, 2));
+            //Console.WriteLine("Search Insert Position : " + SearchInsert(new int[] {1, 3, 5, 6 }, 2));
+
+            //Number of Steps to Reduce a Number to Zero
+            Console.WriteLine("Number of Steps to Reduce a Number to Zero : " + NumberOfSteps(14));
+        }
+
+        public static int[] DecompressRLElist(int[] nums)
+        {
+            int[] x = { 1, 2, 3, 4 };
+            return x;
+        }
+
+        //Number of Steps to Reduce a Number to Zero
+        public static int NumberOfSteps(int num)
+        {
+            int x = 0;
+            while(num > 0)
+            {
+                if (num % 2 == 0)
+                    num = num / 2;
+                else
+                {
+                    num = num - 1;
+                }
+                x++;
+            }
+
+            return x;
         }
 
         //Search Insert Position
