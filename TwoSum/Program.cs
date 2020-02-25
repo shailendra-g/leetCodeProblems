@@ -88,9 +88,38 @@ namespace TwoSum
             //Console.WriteLine("Number of Steps to Reduce a Number to Zero : " + NumberOfSteps(14));
 
             //Decompress Run-Length Encoded List
-            Console.WriteLine("Decompress Run-Length Encoded List : " + DecompressRLElist(new int[] { 1, 3, 5, 6 }));
+            //Console.WriteLine("Decompress Run-Length Encoded List : " + DecompressRLElist(new int[] { 1, 3, 5, 6 }));
+
+            //Jewels and Stones
+            Console.WriteLine("Jewels and Stones : " + NumJewelsInStones("sA","sAsss"));
+
         }
 
+        //Jewels and Stones
+        public static int NumJewelsInStones(string J, string S)
+        {
+            char[] chars = J.ToCharArray();
+            string[] str = Array.ConvertAll(chars, char.ToString);
+
+            int count = 0;
+
+            foreach (var item in str)
+            {
+                string temp = S;
+                int index = 0;
+                while(index >= 0)
+                {
+                    index = temp.IndexOf(item);
+                    if(index >= 0)
+                    {
+                        count++;
+                        temp = temp.Length > 1 ? temp.Substring(index + 1) : string.Empty;
+                    }
+                }
+            }
+
+            return count;
+        }
 
         //Decompress Run-Length Encoded List
         public static int[] DecompressRLElist(int[] nums)
