@@ -85,13 +85,30 @@ namespace TwoSum
             //Console.WriteLine("Search Insert Position : " + SearchInsert(new int[] {1, 3, 5, 6 }, 2));
 
             //Number of Steps to Reduce a Number to Zero
-            Console.WriteLine("Number of Steps to Reduce a Number to Zero : " + NumberOfSteps(14));
+            //Console.WriteLine("Number of Steps to Reduce a Number to Zero : " + NumberOfSteps(14));
+
+            //Decompress Run-Length Encoded List
+            Console.WriteLine("Decompress Run-Length Encoded List : " + DecompressRLElist(new int[] { 1, 3, 5, 6 }));
         }
 
+
+        //Decompress Run-Length Encoded List
         public static int[] DecompressRLElist(int[] nums)
         {
-            int[] x = { 1, 2, 3, 4 };
-            return x;
+            List<int> x = new List<int>();
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+                int j = nums[i++];
+                int k = nums[i];
+
+                while(j > 0)
+                {
+                    x.Add(k);
+                    j--;
+                }
+            }
+            return x.ToArray();
         }
 
         //Number of Steps to Reduce a Number to Zero
