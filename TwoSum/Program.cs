@@ -91,8 +91,100 @@ namespace TwoSum
             //Console.WriteLine("Decompress Run-Length Encoded List : " + DecompressRLElist(new int[] { 1, 3, 5, 6 }));
 
             //Jewels and Stones
-            Console.WriteLine("Jewels and Stones : " + NumJewelsInStones("sA","sAsss"));
+            //Console.WriteLine("Jewels and Stones : " + NumJewelsInStones("sA","sAsss"));
 
+            //Subtract the Product and Sum of Digits of an Integer
+            //Console.WriteLine("Subtract the Product and Sum of Digits of an Integer : " + SubtractProductAndSum(4421));
+
+            //Find Numbers with Even Number of Digits
+            // Console.WriteLine("Find Numbers with Even Number of Digits :" + FindNumbers(new int[] { 12, 123, 1234, 12345 , 34}));
+
+            //Squares of a Sorted Array
+            //Console.WriteLine("Squares of a Sorted Array : " + SortedSquares(new int[] { -4, -1, 0, 3 }));
+
+            //Sort Array By Parity
+            Console.WriteLine("Sort Array By Parity : " + SortArrayByParity(new int[] { 1, 0, 2, 3 }));
+        }
+
+        //Sort Array By Parity
+        public static int[] SortArrayByParity(int[] num)
+        {
+            var list = new List<KeyValuePair<int, int>>();
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (num[i] % 2 == 0)
+                {
+                    if (list.Count > 0)
+                    {
+                        var x = list[0];
+                        num[x.Key] = num[i];
+                        num[i] = x.Value;
+                        list.Remove(x);
+                        list.Add(new KeyValuePair<int, int>(i, x.Value));
+                    }
+                }
+                else
+                {
+                    list.Add(new KeyValuePair<int, int>(i, num[i]));
+                }
+            }
+
+            return num;
+        }
+
+        //Squares of a Sorted Array
+        public static int[] SortedSquares(int[] A)
+        {
+            for(int i = 0; i < A.Length; i++)
+            {
+                A[i] = A[i] * A[i];
+            }
+
+            Array.Sort(A);
+
+            return A;
+
+            //List<int> num = new List<int>();
+            //foreach (var item in A)
+            //{
+            //    num.Add(item * item);
+            //}
+
+            //num.Sort();
+
+            //return num.ToArray();
+        }
+
+        //Find Numbers with Even Number of Digits
+        public static int FindNumbers(int[] nums)
+        {
+            int count = 0;
+
+            foreach (var item in nums)
+            {
+                count = item.ToString().Length % 2 == 0 ? count + 1 : count;
+            }
+
+            return count;
+        }
+
+        //Subtract the Product and Sum of Digits of an Integer
+        public static int SubtractProductAndSum(int n)
+        {
+            char[] chars = n.ToString().ToCharArray();
+            string[] str = Array.ConvertAll(chars, char.ToString);
+
+            int prod = 1;
+            int sum = 0;
+
+            foreach (var item in str)
+            {
+                int var = Convert.ToInt16(item);
+                prod = prod * var;
+                sum = sum + var;
+            }
+
+            return prod - sum;
         }
 
         //Jewels and Stones
