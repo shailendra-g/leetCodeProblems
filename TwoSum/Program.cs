@@ -103,7 +103,38 @@ namespace TwoSum
             //Console.WriteLine("Squares of a Sorted Array : " + SortedSquares(new int[] { -4, -1, 0, 3 }));
 
             //Sort Array By Parity
-            Console.WriteLine("Sort Array By Parity : " + SortArrayByParity(new int[] { 1, 0, 2, 3 }));
+            //Console.WriteLine("Sort Array By Parity : " + SortArrayByParity(new int[] { 1, 0, 2, 3 }));
+
+            //Robot Return to Origin
+            Console.WriteLine("Robot Return to Origin : " + JudgeCircle("LUDRD"));
+        }
+
+        //Robot Return to Origin
+        public static bool JudgeCircle(string moves)
+        {
+            char[] str = moves.ToCharArray();
+
+            int rl = 0, ud = 0;
+
+            foreach (var item in str)
+            {
+                switch (item)
+                {
+                    case 'L':
+                        rl++;
+                        break;
+                    case 'R':
+                        rl--;
+                        break;
+                    case 'U':
+                        ud++;
+                        break;
+                    case 'D':
+                        ud--;
+                        break;
+                }
+            }
+            return rl == 0 && ud == 0;
         }
 
         //Sort Array By Parity
