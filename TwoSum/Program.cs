@@ -31,7 +31,7 @@ namespace TwoSum
             //LinkedList<string> l3 = AddTwoNumbers(l1, l2);
 
             //Reverse Integer
-            //Console.WriteLine("Reversing : " + Reverse(1534236469));
+            //Console.WriteLine("Reversing : " + BetterReverse(1534236469));
 
             //Palindrome
             //Console.WriteLine("Palindrome : " + Palindrome(-101));
@@ -697,6 +697,29 @@ namespace TwoSum
             {
                 rev = rev * -1;
             }
+            return rev;
+        }
+
+        public static int BetterReverse(int n)
+        {
+            if (n == 0)
+                return 0;
+
+            int rev = 0;
+
+            while (n != 0)
+            {
+                try
+                {
+                    rev = (rev * 10) + (n % 10);
+                    n = n / 10;
+                }
+                catch (OverflowException)
+                {
+                    return 0;
+                }
+            }
+
             return rev;
         }
 
